@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
-  attr_accessible :email, :password_digest
 
-  attr_accessible :email, :first_name, :last_name, :title, :phone_no, :password, :password_confirmation
+  has_secure_password
+
+  attr_accessible :email, :password, :password_confirmation
 
   validates :email,
             :presence => true,
