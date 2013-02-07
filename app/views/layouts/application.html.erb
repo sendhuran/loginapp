@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8" />
+	
+	<!-- Uncomment to make IE8 render like IE7 -->
+	<!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
+	
+	<!-- Set the viewport width to device width for mobile -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	
+	<title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+  
+	<!-- Included CSS Files -->
+	<%= stylesheet_link_tag    "application" %>
+	
+	<!-- Included JS Files  -->
+	<%= javascript_include_tag "application" %>
+  
+  <%= csrf_meta_tags %>
+</head>
+<body>
+<nav class="top-bar" style="background-color: #2E6AB1; margin-bottom: 0px;">
+
+  <!--  TOPBAR - Left Section - Page Links  -->
+  <ul>
+    <li class="name"><%= link_to image_tag("logo_transco_Resized.png"), :root %></li>
+    <li class="toggle-topbar"><a href="/home"></a></li>
+  </ul>
+
+  <section>
+    <ul class="left">
+      <li><a href="/rails">substations</a></li>
+    </ul>
+    <ul class="">
+      <li><a href="/javascript">users</a></li>
+    </ul>
+  </section>
+
+  <section class="right">
+    <!--  TOPBAR  - Right Section - Login/Logout/Account_Settings -->
+
+    <% if current_user %>
+      <ul class="" >
+        <li style="color: #fff; padding-left: 10px; padding-right: 10px;">
+          <%= link_to user_path(current_user.id), :id => 'current_user' do%>
+            <i class="icon-user"></i>
+            <%= current_user.first_name %>
+            <%= current_user.last_name %>
+          <% end %>
+        </li>
+      </ul>
+      <ul class="">
+        <li style="color: #fff; padding-left: 10px; padding-right: 10px;">
+          <%= link_to '<i class="icon-signout"></i> Log Out'.html_safe, logout_path, :style => 'font-weight: normal; font-size: 11px;' %>
+        </li>
+      </ul>
+    <% else %>
+      <ul class="" style="">
+        <li style="color: #fff; padding-left: 10px; padding-right: 10px;font-weight: normal; font-size: 11px; " id="Sign_up">
+          <%= link_to signup_path do %>
+            <i class="icon-plus-sign"></i>
+            <span>sign up</span>
+          <% end %>
+        </li>
+      </ul>
+      <ul class="">
+        <li style="color: #fff; padding-left: 10px; padding-right: 10px; font-weight: normal; font-size: 11px; " id="Log_in">
+          <%= link_to login_path do %>
+            <i class="icon-signin"></i>
+            <span>login</span>
+          <% end %>
+        </li>
+      </ul>
+    <% end %>
+  </section>
+</nav>
+  <%= yield %>
+</body>
+</html>
